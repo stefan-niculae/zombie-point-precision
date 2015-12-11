@@ -46,7 +46,7 @@ public class PedalClick : MonoBehaviour {
     void Accelerate()
     {
         transform.Rotate(new Vector3(0f, 0f, -1f) * ROTATION_SPEED * Time.deltaTime);
-        if (foot.rotation.z - footDown.rotation.z < ROTATION_ERROR)
+        if (foot.rotation.z - footDown.rotation.z > ROTATION_ERROR)
         {
             foot.Rotate(new Vector3(0f, 0f, 0.1f) * ROTATION_SPEED * Time.deltaTime);
             pedal.Rotate(new Vector3(-0.1f, 0f, 0f) * ROTATION_SPEED * Time.deltaTime);
