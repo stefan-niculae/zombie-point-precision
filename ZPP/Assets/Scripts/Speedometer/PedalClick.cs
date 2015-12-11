@@ -7,6 +7,7 @@ public class PedalClick : MonoBehaviour {
     public Transform minRotation;
 
     private readonly float ROTATION_SPEED = 100f;
+    private readonly float ROTATION_ERROR = 0.01f;
 
     private KeyCode accelration = KeyCode.Space;
 
@@ -23,13 +24,19 @@ public class PedalClick : MonoBehaviour {
     {
         if (Input.GetKey(accelration))
         {
-            Accelerate();
+            if (transform.rotation.z + ROTATION_ERROR > maxRotation.rotation.z)
+            {
+                Accelerate();
+            }
         }
         else
         {
             if (startGame)
             {
-                Decelerate();
+                if (transform.rotation.z - ROTATION_ERROR < minRotation.rotation.z)
+                {
+                    Decelerate();
+                }
             }
         }
     }
@@ -42,5 +49,11 @@ public class PedalClick : MonoBehaviour {
     void Decelerate()
     {
         transform.Rotate(new Vector3(0f, 0f, 1f) * ROTATION_SPEED * Time.deltaTime);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        //TODO: change this to end
+        Time.timeScale = 0;
     }
 }
