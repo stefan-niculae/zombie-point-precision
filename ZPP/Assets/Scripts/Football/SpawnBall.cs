@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SpawnBall : MonoBehaviour {
 
-    readonly Vector2 UP_POS = new Vector2(7f, -2.35f);
+    readonly Vector2 UP_POS = new Vector2(7f, -1.9f);
     readonly Vector2 DOWN_POS = new Vector2(7f, -3.5f);
     private int position;
     private int direction;

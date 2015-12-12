@@ -41,6 +41,10 @@ public class PhaseManager : Singleton<PhaseManager>
             if ((f > 3 * interval && !passed3))
                 passed3 = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+            Application.LoadLevel(Application.loadedLevel);
+            // SceneManager.LoadScene(0);
     }
 
     void EnableObjs(GameObject[] objs)
