@@ -31,7 +31,7 @@ public class MoneyGameControler : MonoBehaviour {
         while (true)
         {
             Vector3 spawnPosition = new Vector3(
-                                                Random.Range(-maxWidth+4, maxWidth-1),
+                                                Random.Range(-maxWidth+5, maxWidth-2),
                                                 transform.position.y,
                                                 0.0f
                                                 );
