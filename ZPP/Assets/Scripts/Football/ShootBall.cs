@@ -40,11 +40,18 @@ public class ShootBall : MonoBehaviour {
         {
             transform.Rotate(new Vector3(0f, 0f, -0.1f) * Time.deltaTime * ROTATION_SPEED);
         }
-        else if(transform.rotation.z - endRotation.rotation.z < ROTATION_ERROR && !isHitting)
-        {
-            transform.Rotate(new Vector3(0f, 0f, 0.1f) * Time.deltaTime * ROTATION_SPEED);
-        }
 
+        if (!isHitting)
+        {
+            if (transform.rotation.z - endRotation.rotation.z < ROTATION_ERROR)
+            {
+                transform.Rotate(new Vector3(0f, 0f, 0.1f) * Time.deltaTime * ROTATION_SPEED);
+            }
+            else
+            {
+                isHitting = true;
+            }
+        }
     }
 
     void HitUP()
