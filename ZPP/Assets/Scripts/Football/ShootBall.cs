@@ -3,72 +3,41 @@ using System.Collections;
 
 public class ShootBall : MonoBehaviour {
 
-    private readonly float ROTATION_SPEED = 800f;
-    private readonly float MOVE_SPEED = 15f;
-    private readonly float ROTATION_ERROR = 0.01f;
-    private bool isHitting;
-
-    private Vector2 upPosition = new Vector2(-5f, 2f);
-    private Vector2 downPosition = new Vector2(-5f, -0.5f);
-    private Vector2 movingTowards;
+    public Transform positionUp;
+    public Transform positionDown;
+    public Vector2 direction;
+    private readonly float SPEED = 5f;
 
     private KeyCode up = KeyCode.UpArrow;
     private KeyCode down = KeyCode.DownArrow;
 
-    public Transform defaultRotation, startRotation, endRotation;
-
     void Start()
     {
-        movingTowards = startRotation.position;
-        isHitting = true;
+        direction = transform.position;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(up))
         {
-            HitUP();
+            goUp();
         }
         else if (Input.GetKeyDown(down))
         {
-            HitDown();
+            goDown();
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, movingTowards, Time.deltaTime * MOVE_SPEED);
-
-        if(transform.rotation.z - startRotation.rotation.z > ROTATION_ERROR && isHitting)
-        {
-            transform.Rotate(new Vector3(0f, 0f, -0.1f) * Time.deltaTime * ROTATION_SPEED);
-        }
-
-        if (!isHitting)
-        {
-            if (transform.rotation.z - endRotation.rotation.z < ROTATION_ERROR)
-            {
-                transform.Rotate(new Vector3(0f, 0f, 0.1f) * Time.deltaTime * ROTATION_SPEED);
-            }
-            else
-            {
-                isHitting = true;
-            }
-        }
+        transform.position = Vector2.MoveTowards(transform.position, direction, SPEED * Time.deltaTime);
     }
 
-    void HitUP()
+    void goUp()
     {
-        movingTowards = upPosition;
-        isHitting = true;
+        direction = positionUp.position;
     }
 
-    void HitDown()
+    void goDown()
     {
-        movingTowards = downPosition;
-        isHitting = true;
-    }
-
-    public void setHit(bool isHitting)
-    {
-        this.isHitting = isHitting;
+        direction = positionDown.position;
     }
 
 }

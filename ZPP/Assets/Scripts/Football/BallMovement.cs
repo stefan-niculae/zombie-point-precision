@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BallMovement : MonoBehaviour {
 
-    private readonly float BALL_SPEED = 15f;
+    private readonly float BALL_SPEED = 10f;
     private readonly float BACKDISTANCE = 1f;
 
     private int randomPos;
@@ -28,6 +28,10 @@ public class BallMovement : MonoBehaviour {
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, direction, Time.deltaTime * BALL_SPEED);
+        if(transform.position.x <= 0)
+        {
+            Destroy(gameObject);
+        }
 
         if (isHit)
         {
@@ -46,7 +50,7 @@ public class BallMovement : MonoBehaviour {
         if(other.gameObject.name == "right foot")
         {
             isHit = true;
-            foot.GetComponent<ShootBall>().setHit(false);
+            
 
             if (direction.y >= 0)
             {
