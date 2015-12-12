@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PedalClick : MonoBehaviour {
+public class PedalClick : MonoBehaviour
+{
 
     public Transform maxRotation;
     public Transform minRotation;
@@ -15,6 +16,11 @@ public class PedalClick : MonoBehaviour {
 
     private bool startGame;
 
+    // void Awake()
+    // {
+    //     pedal.rotation = pedalUp.rotation;
+    // }
+
     IEnumerator Start()
     {
         startGame = false;
@@ -24,7 +30,7 @@ public class PedalClick : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKey(acceleration))
+        if (Input.GetButton("Pedal"))
         {
             if (transform.rotation.z + ROTATION_ERROR > maxRotation.rotation.z)
             {
@@ -51,13 +57,12 @@ public class PedalClick : MonoBehaviour {
             foot.Rotate(new Vector3(0f, 0f, 0.1f) * ROTATION_SPEED * Time.deltaTime);
             pedal.Rotate(new Vector3(-0.1f, 0f, 0f) * ROTATION_SPEED * Time.deltaTime);
         }
-
     }
 
     void Decelerate()
     {
         transform.Rotate(new Vector3(0f, 0f, 1f) * ROTATION_SPEED * Time.deltaTime);
-        if (foot.rotation.z - footUp.rotation.z > ROTATION_ERROR)
+        if (footUp.rotation.z - foot.rotation.z > ROTATION_ERROR)
         {
             foot.Rotate(new Vector3(0f, 0f, -0.1f) * ROTATION_SPEED * Time.deltaTime);
             pedal.Rotate(new Vector3(0.1f, 0f, 0f) * ROTATION_SPEED * Time.deltaTime);
@@ -66,7 +71,6 @@ public class PedalClick : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        //TODO: change this to end
-        Time.timeScale = 0;
+        PhaseManager.Instance.EndGame("speed");
     }
 }

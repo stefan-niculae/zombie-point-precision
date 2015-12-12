@@ -9,6 +9,13 @@ public class MoveGreenPosition : MonoBehaviour {
 
     public Transform minRotation;
     public Transform maxRotation;
+    float minRotationDiff;
+    const float MIN_ROT_DIFF_PER = .35f;
+
+    void Awake()
+    {
+        minRotationDiff = Mathf.Abs(maxRotation.rotation.z - minRotation.rotation.z) * MIN_ROT_DIFF_PER;
+    }
 
     IEnumerator Start()
     {
@@ -40,5 +47,6 @@ public class MoveGreenPosition : MonoBehaviour {
     void GetRandom()
     {
         randomRotation = Random.Range(minRotation.rotation.z, maxRotation.rotation.z);
+        // randomRotation = Utils.Instance.RandRangeAtLeast(minRotation.rotation.z, maxRotation.rotation.z, transform.rotation.z, minRotationDiff);
     }
 }

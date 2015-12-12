@@ -37,7 +37,7 @@ public class PrecisionWatcher : MonoBehaviour
             if (insideCorrectZone)
                 center.Spawn();
 			else
-                PhaseManager.Instance.EndGame();
+                PhaseManager.Instance.EndGame("gantera outside");
         }
 	}
 }

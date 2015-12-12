@@ -42,10 +42,7 @@ public class ShrinkingCenter : MonoBehaviour
             firstSpawn = false;
         }
         else
-            do
-            {
-                pos.y = Random.Range(botY, topY);
-            } while (Mathf.Abs(pos.y - transform.localPosition.y) < minimumRespawnDistance);
+            pos.y = Utils.Instance.RandRangeAtLeast(botY, topY, transform.localPosition.y, minimumRespawnDistance);
         transform.localPosition = pos;
 
         spawnY = transform.localScale.y;
@@ -65,6 +62,6 @@ public class ShrinkingCenter : MonoBehaviour
         transform.localScale = scale;
 
         if (timeDiff == 1)
-            PhaseManager.Instance.EndGame();
+            PhaseManager.Instance.EndGame("gantera shrink");
     }
 }

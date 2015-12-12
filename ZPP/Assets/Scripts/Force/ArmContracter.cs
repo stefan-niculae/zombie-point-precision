@@ -35,10 +35,10 @@ public class ArmContracter : MonoBehaviour
 	{
         rot += DETRACTING_SPEED * Time.deltaTime;
 
+        // Can't rotate more than the maximum detracted rotation
         if (rot > detractedRot)
         {
             rot = detractedRot;
-            Debug.LogWarning("The left arm is rotating lower than the maximum detracted rotation!");
         }
     }
 
