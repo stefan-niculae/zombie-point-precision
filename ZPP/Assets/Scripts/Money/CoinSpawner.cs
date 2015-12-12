@@ -15,7 +15,7 @@ public class CoinSpawner : MonoBehaviour
     float YSpawn;
 
     bool isSpawning = true;
-    readonly float SPAWN_INTERVAL = 1f; // in seconds
+    readonly float SPAWN_INTERVAL = 3.5f; // in seconds
     float lastSpawn;
 
     void Start()

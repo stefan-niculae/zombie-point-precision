@@ -10,7 +10,7 @@ public class BallMovement : MonoBehaviour
     Vector2 direction;
     Vector2 bounceDirection;
 
-    readonly Vector2 LEFT_DIR = new Vector2(-7.5f, 0);
+    readonly Vector2 LEFT_DIR = new Vector2(-3.5f, 0);
     readonly Vector2 UP_BOUNCE_DIR = new Vector2(15f, 7.5f);
     readonly Vector2 DOWN_BOUNCE_DIR = new Vector2(15f, -7.5f);
 

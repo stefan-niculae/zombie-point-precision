@@ -4,7 +4,7 @@ using System.Collections;
 public class MoveGreenPosition : MonoBehaviour {
 
     private float randomRotation;
-    private readonly float ROTATION_SPEED = 200f;
+    private readonly float ROTATION_SPEED = 125f;
     private readonly float ROTATION_ERROR = 0.03f;
 
     public Transform minRotation;

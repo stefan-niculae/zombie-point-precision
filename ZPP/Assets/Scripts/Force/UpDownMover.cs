@@ -2,7 +2,7 @@
 
 public class UpDownMover : MonoBehaviour
 {
-    readonly float SPEED = 2.5f;
+    readonly float SPEED = 1f;
 
     [SerializeField]
     float topY;

@@ -9,14 +9,17 @@ public class PhaseManager : Singleton<PhaseManager>
     [SerializeField]
     float interval;
 
-
     int currentIndex = 0;
+
+    bool passed1, passed2, passed3;
 
 
     void Update()
     {
         // Check if not all the colors have grown
-        if (Time.timeSinceLevelLoad > 0 && Utils.Instance.FloatEqual(Time.timeSinceLevelLoad % interval, 0) && currentIndex < colorBGs.Length)
+        // if (Time.timeSinceLevelLoad > 0 && Mathf.Abs(Time.timeSinceLevelLoad % interval) < .01 && currentIndex < colorBGs.Length)
+        float f = Time.timeSinceLevelLoad;
+        if ((f > 1 * interval && !passed1) || (f > 2 * interval && !passed2) || (f > 3 * interval && !passed3))
         {
             // fkin 14 mins left, had to hardcode!
             if (currentIndex == 0)
@@ -28,6 +31,15 @@ public class PhaseManager : Singleton<PhaseManager>
 
             colorBGs[currentIndex].StartGrow();
             currentIndex++;
+
+            if ((f > 1 * interval && !passed1))
+                passed1 = true;
+
+            if ((f > 2 * interval && !passed2))
+                passed2 = true;
+
+            if ((f > 3 * interval && !passed3))
+                passed3 = true;
         }
     }
 
