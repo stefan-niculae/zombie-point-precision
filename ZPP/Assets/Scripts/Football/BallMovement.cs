@@ -1,66 +1,58 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class BallMovement : MonoBehaviour {
+public class BallMovement : MonoBehaviour
+{
 
-    private readonly float BALL_SPEED = 10f;
-    private readonly float BACKDISTANCE = 1f;
+    readonly float FADE_SPEED = .075f;
 
-    private int randomPos;
-    private bool isHit;
-    private Vector2 direction;
-    private Vector2 upDirection = new Vector2(7f, 7f);
-    private Vector2 downDirection = new Vector2(7f, -7f);
+    private bool isHit = false;
 
-    private GameObject foot;
+    Vector2 direction;
+    Vector2 bounceDirection;
 
-    void Start()
+    readonly Vector2 LEFT_DIR = new Vector2(-7.5f, 0);
+    readonly Vector2 UP_BOUNCE_DIR = new Vector2(15f, 7.5f);
+    readonly Vector2 DOWN_BOUNCE_DIR = new Vector2(15f, -7.5f);
+
+
+    public void SetBounceDir (int directionCode)
     {
-        foot = GameObject.Find("Foot");
-        isHit = false;
-    }
+        // The ball goes left initially no mather which way it bounces
+        direction = LEFT_DIR;
 
-    public void SetDirection(Vector2 direction)
-    {
-        this.direction = direction;
+        // TODO check why this is random!
+        if (directionCode == 0)
+            bounceDirection = UP_BOUNCE_DIR;
+        if (directionCode == 1)
+            bounceDirection = DOWN_BOUNCE_DIR;
     }
 
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, direction, Time.deltaTime * BALL_SPEED);
-        if(transform.position.x <= 0)
+        transform.position += (Vector3)direction * Time.deltaTime;
+
+        if (transform.position.x <= 0)
         {
+            PhaseManager.Instance.EndGame("football");
             Destroy(gameObject);
         }
 
         if (isHit)
         {
-            GetComponent<SpriteRenderer>().color -= new Color(0f,0f,0f,0.02f);
+            GetComponent<SpriteRenderer>().color -= new Color(0, 0, 0, FADE_SPEED);
+
+            if (GetComponent<SpriteRenderer>().color.a <= 0)
+                Destroy(gameObject);
         }
 
-        if(GetComponent<SpriteRenderer>().color.a <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-
-        if(other.gameObject.name == "right foot")
+        if (other.collider == References.Instance.footColl)
         {
             isHit = true;
-            
-
-            if (direction.y >= 0)
-            {
-                direction = upDirection;
-            }
-            else
-            {
-                direction = downDirection;
-            }
-
+            direction = bounceDirection;
         }
     }
 
